@@ -1,0 +1,78 @@
+/* Main Button Area css
+============================================================================================ */
+.primary-btn {
+  display: inline-block;
+  background: #f8fbff;
+  padding: 0px 48px;
+  color: #f8fbff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 50px;
+  border-radius: 5px;
+  outline: none !important;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  @include transition();
+  &:hover {
+    background: #f8fbff;
+    color: #f8fbff;
+  }
+}
+.primary-btn2 {
+  display: inline-block;
+  background: #f8fbff;
+  padding: 0px 48px;
+  color: #f8fbff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 48px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  outline: none !important;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  @include transition();
+  &:hover {
+    background: transparent;
+    color: #f8fbff;
+    border: 1px solid #f8fbff;
+  }
+}
+.white_bg_btn {
+  background: #fff;
+  display: inline-block;
+  color: #f8fbff;
+  line-height: 40px;
+  padding: 0px 28px;
+  font-size: 14px;
+  font-family: $primary-font;
+  font-weight: 500;
+  text-transform: uppercase;
+  @include transition;
+  border: none;
+  &:hover {
+    background: #f8fbff;
+    color: #fff;
+  }
+}
+.blog_btn {
+  border: 1px solid #eeeeee;
+  background: #f1f9ff;
+  padding: 0px 32px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: $primary-font;
+  color: #f8fbff;
+  line-height: 34px;
+  display: inline-block;
+  &:hover {
+    background: #f8fbff;
+    border-color: #f8fbff;
+    color: #f8fbff;
+  }
+}
+
+/* End Main Button Area css
+============================================================================================ */
