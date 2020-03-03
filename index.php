@@ -45,7 +45,7 @@
         <nav class="navbar navbar-expand-lg navbar-light">
           <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <a class="navbar-brand logo_h" href="index.html"
+            <a class="navbar-brand logo_h" href="index.php"
               ><img src="img/logo.png" alt=""
             /></a>
             <button
@@ -147,8 +147,8 @@
                   One Step Ahead This Season
                 </h2>
                 <div>
-                  <a href="#" class="primary-btn2 mb-3 mb-sm-0">learn more</a>
-                  <a href="" class="primary-btn ml-sm-3 ml-0">join for free</a>
+                  <a href="loginSignup/login.php" class="primary-btn2 mb-3 mb-sm-0">Log in</a>
+                  <a href="loginSignup" class="primary-btn ml-sm-3 ml-0">join for free</a>
                 </div>
               </div>
             </div>
