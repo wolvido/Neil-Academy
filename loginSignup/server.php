@@ -16,6 +16,7 @@ if (isset($_POST['signup'])) {
 //ISSET checks if a variable is not null
   // receive all input values from the form
   $username = mysqli_real_escape_string($db, $_POST['name']);
+  $_SESSION['username'] = $username;
   //mysqli_real_escape_string() tells the database to not treat them as specialChar
   $email = mysqli_real_escape_string($db, $_POST['email']);
   $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
@@ -57,14 +58,14 @@ if (isset($_POST['signup'])) {
   	mysqli_query($db, $query);
   	$_SESSION['username'] = $username;
   	$_SESSION['success'] = "You are now logged in";
-  	header('location: index.php');
+  	header('location: ../courses/index.php');
   }
 }
 
-
 // LOGIN USER
-if (isset($_POST['login_user'])) {
+if (isset($_POST['signin'])) {
   $username = mysqli_real_escape_string($db, $_POST['username']);
+  $_SESSION['username'] = $username;
   $password = mysqli_real_escape_string($db, $_POST['password']);
 
   if (empty($username)) {
@@ -76,12 +77,12 @@ if (isset($_POST['login_user'])) {
 
   if (count($errors) == 0) {
   	$password = md5($password);
-  	$query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+  	$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
   	$results = mysqli_query($db, $query);
   	if (mysqli_num_rows($results) == 1) {
   	  $_SESSION['username'] = $username;
   	  $_SESSION['success'] = "You are now logged in";
-  	  header('location: index.php');
+  	  header('location: ../courses/index.php');
   	}else {
   		array_push($errors, "Wrong username/password combination");
   	}
