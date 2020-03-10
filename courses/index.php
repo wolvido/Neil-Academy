@@ -30,8 +30,10 @@ $user_data = mysqli_query($db, $user_data_query);
 while($row = $user_data->fetch_assoc()) {
     $user_data_array[] = $row['course'];
  }
-
 //
+
+
+
 //list all the courses
 echo "<p>Available Courses<p>";
 while ($row2 = $course->fetch_assoc()) {
