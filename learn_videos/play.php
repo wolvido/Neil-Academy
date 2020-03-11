@@ -1,9 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="../img/favicon.png" type="../image/png" />
+    <title>Neil Academy</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../loginSignup/css/style.css">
+    <link rel="stylesheet" href="../loginSignup/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="../css/flaticon.css" />
+    <link rel="stylesheet" href="../css/themify-icons.css" />
+    <link rel="stylesheet" href="../vendors/owl-carousel/owl.carousel.min.css" />
+    <link rel="stylesheet" href="../vendors/nice-select/css/nice-select.css" />
+    <!-- main css -->
+    <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-
+<div class="">
+<div class="col-lg-5">
+<a class="navbar-brand logo_h" href="../index.php"><img alt="" src="../img/logo.png"></a>
 <?php
 session_start();
 
@@ -12,11 +31,15 @@ session_start();
 $db = mysqli_connect('localhost', 'root', '', 'power');
 
 // creating variables
+$lesson = $_POST['lesson'];
+
 $video = $_POST['play'];
 
 $user = $_SESSION['user'];
 
 $check = false;
+
+echo"<p>Lesson $lesson</p>";
 
 echo $video;
 
@@ -30,7 +53,7 @@ while($row = $watched_data->fetch_assoc()) {
  }
 //check db if video is watched
 if (in_array($video,$watched_data_array)){
-echo"you have watched this video before";
+echo"you have finished this video before";
 $check = true;
 //else add it on the database
 }else{ 
@@ -56,6 +79,11 @@ if($check){
 }
 //
 ?>
+</div>
+</div>
+
+</div>
+
 
 </body>
 </html>
