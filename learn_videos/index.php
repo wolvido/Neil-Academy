@@ -56,18 +56,15 @@ while ($row = $video->fetch_assoc()){
 
     echo"<br>";
 }
-
 $_SESSION['user'] = $user;
-
-
+$_SESSION['course'] = $course;
 ?>
+
 <p><a href="admin.php">link</a></p>
 
 </div>
 </div>
-
 </div>
 
 </body>
-
 </html>

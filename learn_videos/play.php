@@ -26,16 +26,14 @@
 <?php
 session_start();
 
-
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'power');
 
 // creating variables
 $lesson = $_POST['lesson'];
-
 $video = $_POST['play'];
-
 $user = $_SESSION['user'];
+$course = $_SESSION['course'];
 
 $check = false;
 
@@ -57,13 +55,13 @@ echo"you have finished this video before";
 $check = true;
 //else add it on the database
 }else{ 
-$watched_video_query = "INSERT INTO `user_watched_videos`(`user`, `video`) VALUES ('$user','$video')";
+$watched_video_query = "INSERT INTO `user_watched_videos`(`user`, `video`,'course') VALUES ('$user','$video','$course')";
 mysqli_query($db, $watched_video_query);
 }
 
 // for progress update
 $user_progress = 0; 
-$user_data_query = "SELECT `video_progress` FROM `progress` WHERE username = '$user'";
+$user_data_query = "SELECT `video_progress` FROM `progress` WHERE username = '$user' AND course = '$course'";
 $user_data = mysqli_query($db, $user_data_query);
 while($row = $user_data->fetch_assoc()) {
     $user_progress = $row['video_progress'];
@@ -71,7 +69,7 @@ while($row = $user_data->fetch_assoc()) {
 
  //add 1 for progress if video not watched
 $user_progress += 1;
-$query_update = "UPDATE `progress` SET `video_progress`='$user_progress' WHERE username = '$user'";
+$query_update = "UPDATE `progress` SET `video_progress`='$user_progress' WHERE username = '$user' AND course = '$course'";
 if($check){
     echo".";
 }else{
@@ -81,9 +79,7 @@ if($check){
 ?>
 </div>
 </div>
-
 </div>
-
 
 </body>
 </html>
