@@ -3,7 +3,6 @@
 <?php
 session_start();
 ?>
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -80,7 +79,6 @@ session_start();
             </div>
         </nav>
         <!-- end of header and shit -->
-        
             <div class="jumbotron vertical-center">
             <div class="row">
                 <!--the whole right column  -->
@@ -110,7 +108,6 @@ session_start();
                             </section>
                             <section class="x">
                                 <h2 class="x">My account</h2>
-                                
                                 <ul>
                                     <li>
                                     <form action="progress.php" method="POST">
@@ -134,45 +131,38 @@ session_start();
                         </nav>
                     </div>
                   </div>
-
                     <!--  -->
-
                     <div class="container">
 
-                   <?php
-
-
-
+<?php
 $username = "";
+$username = $_SESSION['username'];
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'power');
 
-$username = $_SESSION['username'];
-
+//another session for use in apply_course.php
 $_SESSION['another'] = $username;
 
 $get_course_data = "SELECT `course` FROM `course`";
 $course = mysqli_query($db, $get_course_data);
-
-//
+//user_data_array will be used to check if the user has applied to the course
 $user_data_array = array(); 
-
 $user_data_query = "SELECT course FROM `usercourse` WHERE user = '$username'";
-
 $user_data = mysqli_query($db, $user_data_query);
-
 while($row = $user_data->fetch_assoc()) {
 $user_data_array[] = $row['course'];
 }
-echo"<div class='col-lg-6'>";
 
+
+
+echo "<div class='col-lg-8'>";
 //if else stuff here
 if($_SESSION['show'] == 'course_show'){
-//list all the courses
+//list all the courses, courses tab
 echo "<h2 class = 'text-uppercase mt-4 mb-5'>My Courses</h2>";
 while ($row2 = $course->fetch_assoc()) {
-
 foreach($row2 as $value) echo "  <p>$value</p>";
+//if in_array check if the user has apllied to the course
 if(in_array($value, $user_data_array)){
 echo"<div class='icon'><span class='flaticon-earth'></span></div>";
 echo" <form method='post' class='register-form' action = 'apply_course.php'>
@@ -189,12 +179,43 @@ echo "<form method='post' class='register-form' action = 'apply_course.php'>
 <p><a href='admin.php'>learn more</a></p>";
 }
 echo"<br>";
-}
-}else{
-  echo"none";
-};
-//
+}}else{
+    //progress tab
+    echo "<h2 class = 'text-uppercase mt-4 mb-5'>My Progress</h2>";
+    while ($row2 = $course->fetch_assoc()) {
+    foreach($row2 as $value) echo "<p>$value</p>";
+    //if in_array check if the user has apllied to the course
+    if(in_array($value, $user_data_array)){
 
+    //percentage of video completion algo
+        //counts user total watched video
+        if ($watched_video_query = mysqli_query($db, "SELECT `video` FROM `user_watched_videos` WHERE user = '$username' AND course = '$value'")) {
+        $watched_videos =  mysqli_num_rows($watched_video_query);
+        }
+        //counts total video
+        if ($total_video_query = mysqli_query($db, "SELECT video FROM `course_vids` WHERE course = '$value'")) {
+        $total_videos =  mysqli_num_rows($watched_video_query);
+        }
+        $progress_percentage = ($watched_videos/$total_videos)*100;
+        if(is_nan($progress_percentage)){
+            echo "    
+            <input type='hidden' name='continue' value='$value'/>
+            <div class='col clockinner clockinner1'>
+                        <h1 class='seconds'>0%</h1>
+                      </div>
+            <p><a href='admin.php'>learn more</a></p>";
+        }else{
+    echo"$total_videos
+    $watched_videos
+    <input type='hidden' name='continue' value='$value'/>
+    <div class='col clockinner clockinner1'>
+                <h1 class='seconds'>$progress_percentage%</h1>
+              </div>
+    <p><a href='admin.php'>learn more</a></p>";
+    }
+}
+}};
+//
 echo "</div>";
 ?>
 

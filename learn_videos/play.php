@@ -40,22 +40,24 @@ $check = false;
 echo"<p>Lesson $lesson</p>";
 
 echo $video;
+// echo $user;
+// echo $course;
 
-//check if video is watched
+//store watched video in array
 $watched_data_array = array(); 
 $check_watched_query = "SELECT video FROM `user_watched_videos` WHERE user = '$user'";
 $watched_data = mysqli_query($db, $check_watched_query);
-
 while($row = $watched_data->fetch_assoc()) {
     $watched_data_array[] = $row['video'];
  }
-//check db if video is watched
+
+//check db if video is watched by using array
 if (in_array($video,$watched_data_array)){
 echo"you have finished this video before";
 $check = true;
 //else add it on the database
 }else{ 
-$watched_video_query = "INSERT INTO `user_watched_videos`(`user`, `video`,'course') VALUES ('$user','$video','$course')";
+$watched_video_query = "INSERT INTO `user_watched_videos`(`user`, `video`,`course`) VALUES ('$user','$video','$course')";
 mysqli_query($db, $watched_video_query);
 }
 
@@ -63,9 +65,10 @@ mysqli_query($db, $watched_video_query);
 $user_progress = 0; 
 $user_data_query = "SELECT `video_progress` FROM `progress` WHERE username = '$user' AND course = '$course'";
 $user_data = mysqli_query($db, $user_data_query);
+
 while($row = $user_data->fetch_assoc()) {
     $user_progress = $row['video_progress'];
- }
+}
 
  //add 1 for progress if video not watched
 $user_progress += 1;

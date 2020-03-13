@@ -2,6 +2,7 @@
 session_start();
 
 $course = $_POST['continue'];
+
 //another session for the username
 $username = $_SESSION['another'];
 
