@@ -118,12 +118,6 @@ session_start();
                                     <li>
                                         <a class="_8ry3zep" data-test-id="side-nav-profile">
                                             <span class="form-submit">Profile</span></a>
-                                            
-                                    </li>
-                                    <li>
-                                        <a class="x" data-test-id="side-nav-teachers">
-                                            <span class="form-submit">Teachers</span>
-                                        </a>
                                     </li>
                                 </ul>
                                 
@@ -153,9 +147,7 @@ while($row = $user_data->fetch_assoc()) {
 $user_data_array[] = $row['course'];
 }
 
-
-
-echo "<div class='col-lg-8'>";
+echo "<div class='col-lg-12'>";
 //if else stuff here
 if($_SESSION['show'] == 'course_show'){
 //list all the courses, courses tab
@@ -183,7 +175,7 @@ echo"<br>";
     //progress tab
     echo "<h2 class = 'text-uppercase mt-4 mb-5'>My Progress</h2>";
     while ($row2 = $course->fetch_assoc()) {
-    foreach($row2 as $value) echo "<p>$value</p>";
+    foreach($row2 as $value);
     //if in_array check if the user has apllied to the course
     if(in_array($value, $user_data_array)){
 
@@ -194,23 +186,31 @@ echo"<br>";
         }
         //counts total video
         if ($total_video_query = mysqli_query($db, "SELECT video FROM `course_vids` WHERE course = '$value'")) {
-        $total_videos =  mysqli_num_rows($watched_video_query);
+        $total_videos =  mysqli_num_rows($total_video_query);
         }
         $progress_percentage = ($watched_videos/$total_videos)*100;
+        $progress_bar = ($watched_videos/$total_videos)*10;
         if(is_nan($progress_percentage)){
-            echo "    
-            <input type='hidden' name='continue' value='$value'/>
+            echo "
+            <div class='row clock_sec clockdiv' id='clockdiv'>
+            <div class = 'col-lg-$progress_bar'>
+            <h2 class='mb-3'>$value</h2>
             <div class='col clockinner clockinner1'>
                         <h1 class='seconds'>0%</h1>
                       </div>
+                      </div>
+                      </div>
             <p><a href='admin.php'>learn more</a></p>";
         }else{
-    echo"$total_videos
-    $watched_videos
-    <input type='hidden' name='continue' value='$value'/>
+    echo"
+    <div class='row clock_sec clockdiv' id='clockdiv'>
+    <div class = 'col-lg-$progress_bar'>
+    <h2 class='mb-3'>$value</h2>
     <div class='col clockinner clockinner1'>
                 <h1 class='seconds'>$progress_percentage%</h1>
               </div>
+              </div>
+            </div>
     <p><a href='admin.php'>learn more</a></p>";
     }
 }
