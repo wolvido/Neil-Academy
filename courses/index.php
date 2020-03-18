@@ -53,7 +53,6 @@ session_start();
                                     <a class="nav-link" href="elements.html">Elements</a>
                                 </li>
                             </ul>
-
                         </li>
                         <li class="nav-item submenu dropdown">
                             <a class="nav-link dropdown-toggle" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Blog</a>
@@ -101,8 +100,10 @@ session_start();
                                     </li>
                                     <!-- assesment -->
                                     <li>
-                                          <input type='hidden' name='assessment_show' value='course'/>
-                                          <input type='submit' class='form-submit' name='assessment' value='Assesment'/>
+                                        <form action="assessment.php" method="POST">
+                                          <input type='hidden' name='assessment_show' value='assessment_show'/>
+                                          <input type='submit' class='form-submit' name='assessment' value='Assessment'/>
+                                          </form>
                                     </li>
                                 </ul>
                             </section>
@@ -139,19 +140,40 @@ $_SESSION['another'] = $username;
 
 $get_course_data = "SELECT `course` FROM `course`";
 $course = mysqli_query($db, $get_course_data);
-//user_data_array will be used to check if the user has applied to the course
+
+//user_data_array will contain the courses the user has, it will be used to check if the user has applied to the course
 $user_data_array = array(); 
 $user_data_query = "SELECT course FROM `usercourse` WHERE user = '$username'";
 $user_data = mysqli_query($db, $user_data_query);
 while($row = $user_data->fetch_assoc()) {
+//puts all result of row['course'] in the array
 $user_data_array[] = $row['course'];
 }
 
 echo "<div class='col-lg-12'>";
-//if else stuff here
+
+//if assessment
+if($_SESSION['show'] == 'assessment_show'){
+    echo "<h2 class = 'text-uppercase mt-4 mb-5'>Assessment</h2>";
+    while ($row2 = $course->fetch_assoc()) {
+        foreach($row2 as $value) echo "<p>$value</p>";
+        //if in_array check if the user has apllied to the course
+        if(in_array($value, $user_data_array)){
+        echo"<div class='icon'><span class='flaticon-earth'></span></div>";
+        echo" <form method='post' class='register-form' action = 'bridge.php'>
+        <input type='hidden' name='apply' value='$value'/>
+        <input type='submit' class='form-submit' name='no' value='start Assessment'/>
+        </form>
+        <p><a href='admin.php'>learn more</a></p>";
+        }
+}
+}else{
+
+
+//if courses
 if($_SESSION['show'] == 'course_show'){
 //list all the courses, courses tab
-echo "<h2 class = 'text-uppercase mt-4 mb-5'>My Courses</h2>";
+echo "<h2 class = 'text-uppercase mt-4 mb-5'>Courses</h2>";
 while ($row2 = $course->fetch_assoc()) {
 foreach($row2 as $value) echo "  <p>$value</p>";
 //if in_array check if the user has apllied to the course
@@ -173,7 +195,7 @@ echo "<form method='post' class='register-form' action = 'apply_course.php'>
 echo"<br>";
 }}else{
     //progress tab
-    echo "<h2 class = 'text-uppercase mt-4 mb-5'>My Progress</h2>";
+    echo "<h2 class = 'text-uppercase mt-4 mb-5'>Progress until completion</h2>";
     while ($row2 = $course->fetch_assoc()) {
     foreach($row2 as $value);
     //if in_array check if the user has apllied to the course
@@ -214,7 +236,7 @@ echo"<br>";
     <p><a href='admin.php'>learn more</a></p>";
     }
 }
-}};
+}}};
 //
 echo "</div>";
 ?>

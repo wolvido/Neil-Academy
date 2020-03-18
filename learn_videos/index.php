@@ -31,8 +31,10 @@ session_start();
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'power');
 
+//setting variables
 $course = $_SESSION['course'];
 $user = $_SESSION['user'];
+
 
 echo "<h2 class='text-uppercase mt-4 mb-5'>$course</h2>";
 

@@ -73,10 +73,21 @@ while($row = $user_data->fetch_assoc()) {
  //add 1 for progress if video not watched
 $user_progress += 1;
 $query_update = "UPDATE `progress` SET `video_progress`='$user_progress' WHERE username = '$user' AND course = '$course'";
+
+
 if($check){
     echo".";
 }else{
+
+   $_SESSION['user'] =  $user;
+    $_SESSION['course'] = $course;
     mysqli_query($db, $query_update);
+    echo "<form method='post' class='register-form' action = '../courses/bridge.php'>
+<input type='hidden' name='apply' value='$course'/>
+<input type='submit' class='form-submit' name='start' value='start quiz'/>
+</form>
+<p><a href='admin.php'>learn more</a></p>";
+    //
 }
 //
 ?>
