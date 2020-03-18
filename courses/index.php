@@ -34,11 +34,11 @@ session_start();
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="index.html">Home</a>
+                            <a class="nav-link" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about-us.html">About</a>
-                        </li>
+                            <a class="nav-link" href="../about-us.html">About</a>
+                        </li>s
                         <li class="nav-item submenu dropdown">
                             <a class="nav-link dropdown-toggle" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Pages</a>
        
@@ -47,10 +47,10 @@ session_start();
                                     <a class="nav-link"  >Courses</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="course-details.html">Course Details</a>
+                                    <a class="nav-link" href="../course-details.html">Course Details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="elements.html">Elements</a>
+                                    <a class="nav-link" href="../elements.html">Elements</a>
                                 </li>
                             </ul>
                         </li>
@@ -58,15 +58,15 @@ session_start();
                             <a class="nav-link dropdown-toggle" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Blog</a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="blog.html">Blog</a>
+                                    <a class="nav-link" href="../blog.html">Blog</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="single-blog.html">Blog Details</a>
+                                    <a class="nav-link" href="../single-blog.html">Blog Details</a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                            <a class="nav-link" href="../contact.html">Contact</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link search" id="search" href="#">
