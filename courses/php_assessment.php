@@ -44,7 +44,7 @@ $_SESSION['course'] = $course;
 </div>
 <div style="padding-bottom: 18px;"><input name="skip_Submit" value="Submit" type="submit"/></div>
 <div>
-
+</div>
 </form>
 
 <script type="text/javascript">
