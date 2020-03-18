@@ -153,6 +153,7 @@ $user_data_array[] = $row['course'];
 echo "<div class='col-lg-12'>";
 
 //if assessment
+if(isset($_SESSION['show'])){
 if($_SESSION['show'] == 'assessment_show'){
     echo "<h2 class = 'text-uppercase mt-4 mb-5'>Assessment</h2>";
     while ($row2 = $course->fetch_assoc()) {
@@ -168,8 +169,6 @@ if($_SESSION['show'] == 'assessment_show'){
         }
 }
 }else{
-
-
 //if courses
 if($_SESSION['show'] == 'course_show'){
 //list all the courses, courses tab
@@ -236,7 +235,7 @@ echo"<br>";
     <p><a href='admin.php'>learn more</a></p>";
     }
 }
-}}};
+}}}};
 //
 echo "</div>";
 ?>

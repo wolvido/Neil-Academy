@@ -35,7 +35,7 @@ $correct = array(
 ,"=="
 );
 
-// html 5 java 5 sql 7 java 6
+
 
 $score = 0;
 if(isset($_POST['data_1'])){
@@ -120,7 +120,7 @@ if($course == 'HTML'){
 </div>";
 
 }
-if($course == 'JAVA'){
+if($course == 'PHP'){
     $progress_bar = ($score/5)*10;
     echo "<div class='row clock_sec clockdiv' id='clockdiv'>
 <div class = 'col-lg-$progress_bar'>
