@@ -11,7 +11,7 @@ $_SESSION['course'] = $course;
 </head>
 <body>
 
-<form method="post" action="check.php" onSubmit="return validateForm();">
+<form method="post" action="check.php" >
 <div style="width: 400px;">
 </div>
 <div style="padding-bottom: 18px;">What Does Sql stand for?<span style="color: red;"> *</span><br/>
@@ -50,9 +50,7 @@ $_SESSION['course'] = $course;
 </div>
 <div style="padding-bottom: 18px;"><input name="skip_Submit" value="Submit" type="submit"/></div>
 <div>
-<div style="float:right"><a href="https://www.100forms.com" id="lnk100" title="form to email">form to email</a></div>
-<script src="https://www.100forms.com/js/FORMKEY:SEKMZRG9QFDQ" type="text/javascript"></script>
-</div>
+
 </form>
 
 <script type="text/javascript">
