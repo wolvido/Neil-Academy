@@ -238,7 +238,7 @@ if ( isset( $_SESSION[ 'show' ] ) ) {
                     echo "<div class='icon'><span class='flaticon-earth'></span></div>";
                     echo " <form method='post' class='register-form' action = 'bridge.php'>
         <input type='hidden' name='apply' value='$value'/>
-        <input type='submit' class='form-submit' name='no' value='start Assessment'/>
+        <input type='submit' class='form-submit' name='no' value='Restart Assessment'/>
         </form>
         <p><a href='admin.php'>learn more</a></p>";
                 } //in_array( $value, $user_data_array )
