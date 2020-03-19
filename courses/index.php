@@ -203,7 +203,7 @@ if ( isset( $_SESSION[ 'show' ] ) ) {
             foreach ( $row_finished as $value )
             $query_score   = "SELECT  `score` FROM `assessment` WHERE finished_assessment = '$value'";
             $user_score     = mysqli_query( $db, $query_score);
-            } 
+             
                 echo" <div class='single_feature'>
                 <div class='icon'><span class='flaticon-student'></span></div>
                 <div class='desc'>
@@ -216,7 +216,9 @@ if ( isset( $_SESSION[ 'show' ] ) ) {
 
             echo " </div>
             </div>";
-        } 
+        }
+    } 
+    
 
 
     
