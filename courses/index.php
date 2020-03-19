@@ -165,6 +165,12 @@ if ( isset( $_SESSION[ 'show' ] ) ) {
         $user_email    = mysqli_query( $db, $query_email );
         $user_finished     = mysqli_query( $db, $query_finished );
 
+        echo" <div class='single_feature'>
+                <div class='icon'><span class='flaticon-student'></span></div>
+                <div class='desc'>
+                  <h4 class='mt-3 mb-2'>USERNAME: $username</h4>
+                </div>
+              </div>";
        
 
         echo" <div class='single_feature'>
@@ -219,10 +225,6 @@ if ( isset( $_SESSION[ 'show' ] ) ) {
         }
     } 
     
-
-
-    
- 
 
     } else {
         //
