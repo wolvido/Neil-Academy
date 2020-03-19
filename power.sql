@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2020 at 03:44 AM
+-- Generation Time: Mar 19, 2020 at 05:18 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -52,6 +52,14 @@ CREATE TABLE `assessment` (
   `finished_assessment` text NOT NULL,
   `score` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `assessment`
+--
+
+INSERT INTO `assessment` (`user`, `finished_assessment`, `score`) VALUES
+('winzyl', 'HTML', 4),
+('winzyl', 'JAVA', 2);
 
 -- --------------------------------------------------------
 
@@ -172,7 +180,10 @@ INSERT INTO `user` (`user_id`, `username`, `password`, `email`) VALUES
 (9, 'antolin', '827ccb0eea8a706c4c34a16891f84e7b', 'test@test.com'),
 (10, 'test', '098f6bcd4621d373cade4e832627b4f6', 'meh@meh.com'),
 (11, 'something', '437b930db84b8079c2dd804a71936b5f', 'something@something.com'),
-(12, 'error', 'cb5e100e5a9a3e7f6d1fd97512215282', 'error@error.com');
+(12, 'error', 'cb5e100e5a9a3e7f6d1fd97512215282', 'error@error.com'),
+(13, 'war', '4ca9d3dcd2b6843e62d75eb191887cf2', 'war@war.com'),
+(14, 'war2', '827ccb0eea8a706c4c34a16891f84e7b', 'war2@gmail.com'),
+(15, 'not', '4ca9d3dcd2b6843e62d75eb191887cf2', 'goingToCry@warrior.com');
 
 -- --------------------------------------------------------
 
@@ -266,7 +277,15 @@ INSERT INTO `usercourse` (`user`, `course`) VALUES
 ('something', 'JAVA'),
 ('something', 'PYTHON'),
 ('something', 'HTML'),
-('something', 'PYTHON');
+('something', 'PYTHON'),
+('war2', 'HTML'),
+('war2', 'JAVA'),
+('war2', 'PHP'),
+('not', 'PHP'),
+('not', 'PHP'),
+('winzyl', 'HTML'),
+('winzyl', 'HTML'),
+('winzyl', 'JAVA');
 
 -- --------------------------------------------------------
 
@@ -299,7 +318,14 @@ INSERT INTO `user_watched_videos` (`user`, `video`, `course`) VALUES
 ('something', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/fwhLuPLXzgk\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'HTML'),
 ('something', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/u-PsaJA2nLE\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'HTML'),
 ('something', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/sGazlDEJvnA\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'HTML'),
-('something', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/wdu9-0gFXpA\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'PYTHON');
+('something', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/wdu9-0gFXpA\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'PYTHON'),
+('war2', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/68dObg6VMQ0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'HTML'),
+('war2', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/2dZiMBwX_5Q\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'JAVA'),
+('war2', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/FWfuCbqA9xQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'PHP'),
+('not', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/FWfuCbqA9xQ\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'PHP'),
+('not', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/64OWnoZD96k\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'PHP'),
+('winzyl', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/68dObg6VMQ0\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'HTML'),
+('winzyl', '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/2dZiMBwX_5Q\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>', 'JAVA');
 
 --
 -- Indexes for dumped tables
@@ -346,7 +372,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
