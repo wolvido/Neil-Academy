@@ -82,7 +82,9 @@ if(isset($_POST['data_7'])){
 
 
 //send the score to db
+$db = mysqli_connect('localhost', 'root', '', 'power');
 $query = "INSERT INTO `assessment`(`user`, `finished_assessment`, `score`) VALUES ('$user','$course','$score')";
+mysqli_query($db, $query);
 
 if($course == 'SQL'){
     $progress_bar = ($score/7)*10;

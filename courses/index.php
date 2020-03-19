@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
 <?php
 session_start();
 ?>
-    <head>
+   <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="icon" href="../img/favicon.png" type="../image/png" />
@@ -38,13 +37,13 @@ session_start();
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../about-us.html">About</a>
-                        </li>s
+                        </li>
                         <li class="nav-item submenu dropdown">
                             <a class="nav-link dropdown-toggle" role="button" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Pages</a>
        
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a class="nav-link"  >Courses</a>
+                                    <a class="nav-link" >Courses</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="../course-details.html">Course Details</a>
@@ -117,8 +116,10 @@ session_start();
                                           </form>
                                     </li>
                                     <li>
-                                        <a class="_8ry3zep" data-test-id="side-nav-profile">
-                                            <span class="form-submit">Profile</span></a>
+                                    <form action="profile.php" method="POST">
+                                          <input type='hidden' name='profile_show' value='profile_show'/>
+                                          <input type='submit' class='form-submit' name='profile' value='Profile'/>
+                                          </form>
                                     </li>
                                 </ul>
                                 
@@ -131,88 +132,163 @@ session_start();
 
 <?php
 $username = "";
-$username = $_SESSION['username'];
+$username = $_SESSION[ 'username' ];
 // connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'power');
+$db       = mysqli_connect( 'localhost', 'root', '', 'power' );
 
 //another session for use in apply_course.php
-$_SESSION['another'] = $username;
+$_SESSION[ 'another' ] = $username;
 
 $get_course_data = "SELECT `course` FROM `course`";
-$course = mysqli_query($db, $get_course_data);
+$course          = mysqli_query( $db, $get_course_data );
 
 //user_data_array will contain the courses the user has, it will be used to check if the user has applied to the course
-$user_data_array = array(); 
+$user_data_array = array( );
 $user_data_query = "SELECT course FROM `usercourse` WHERE user = '$username'";
-$user_data = mysqli_query($db, $user_data_query);
-while($row = $user_data->fetch_assoc()) {
-//puts all result of row['course'] in the array
-$user_data_array[] = $row['course'];
-}
+$user_data       = mysqli_query( $db, $user_data_query );
+while ( $row = $user_data->fetch_assoc() ) {
+    //puts all result of row['course'] in the array
+    $user_data_array[ ] = $row[ 'course' ];
+} //$row = $user_data->fetch_assoc()
 
 echo "<div class='col-lg-12'>";
-
 //if assessment
-if(isset($_SESSION['show'])){
-if($_SESSION['show'] == 'assessment_show'){
-    echo "<h2 class = 'text-uppercase mt-4 mb-5'>Assessment</h2>";
-    while ($row2 = $course->fetch_assoc()) {
-        foreach($row2 as $value) echo "<p>$value</p>";
-        //if in_array check if the user has apllied to the course
-        if(in_array($value, $user_data_array)){
-        echo"<div class='icon'><span class='flaticon-earth'></span></div>";
-        echo" <form method='post' class='register-form' action = 'bridge.php'>
+if ( isset( $_SESSION[ 'show' ] ) ) {
+    if ( $_SESSION[ 'show' ] == 'profile_show' ) {
+        //queries needed for profile data
+        $query_id         = "SELECT `user_id` FROM `user` WHERE username = '$username'";
+        $query_email      = "SELECT `email` FROM `user` WHERE username = '$username'";
+        $query_finished   = "SELECT  `finished_assessment` FROM `assessment` WHERE user = '$username'";
+
+
+        $user_id = mysqli_query( $db, $query_id );
+        $user_email    = mysqli_query( $db, $query_email );
+        $user_finished     = mysqli_query( $db, $query_finished );
+
+       
+
+        echo" <div class='single_feature'>
+        <div class='icon'><span class='flaticon-student'></span></div>
+        <div class='desc'>
+          <h4 class='mt-3 mb-2'>Scholarship</h4>
+          <p>
+            Free Scolarship
+          </p>
+        </div>
+      </div>";
+        
+        while ( $row_id = $user_id->fetch_assoc() ) {
+            foreach ( $row_id as $value )
+                echo" <div class='single_feature'>
+                <div class='icon'><span class='flaticon-student'></span></div>
+                <div class='desc'>
+                  <h4 class='mt-3 mb-2'>USER ID: $value</h4>
+                
+                </div>
+              </div>"; 
+        } 
+
+
+        while ( $row_email = $user_email->fetch_assoc() ) {
+            foreach ( $row_email as $value )
+            echo" <div class='single_feature'>
+            <div class='icon'><span class='flaticon-student'></span></div>
+            <div class='desc'>
+              <h4 class='mt-3 mb-2'>USER email: $value</h4>
+            </div>
+          </div>";   
+        } 
+     
+        while ( $row_finished = $user_finished->fetch_assoc() ) {
+            foreach ( $row_finished as $value )
+            $query_score   = "SELECT  `score` FROM `assessment` WHERE finished_assessment = '$value'";
+            $user_score     = mysqli_query( $db, $query_score);
+            } 
+                echo" <div class='single_feature'>
+                <div class='icon'><span class='flaticon-student'></span></div>
+                <div class='desc'>
+                  <h4 class='mt-3 mb-2'>Finished Assessments: $value</h4>
+                 "
+               ; 
+              while ( $row_score = $user_score->fetch_assoc() ) {
+                foreach ( $row_score as $value_score )
+                  echo "<p>score: $value_score<p>";
+
+            echo " </div>
+            </div>";
+        } 
+
+
+    
+ 
+
+    } else {
+        //
+        if ( $_SESSION[ 'show' ] == 'assessment_show' ) {
+            echo "<h2 class = 'text-uppercase mt-4 mb-5'>Assessment</h2>";
+            while ( $row2 = $course->fetch_assoc() ) {
+                foreach ( $row2 as $value )
+                    echo "<p>$value</p>";
+                //if in_array check if the user has apllied to the course
+                if ( in_array( $value, $user_data_array ) ) {
+                    echo "<div class='icon'><span class='flaticon-earth'></span></div>";
+                    echo " <form method='post' class='register-form' action = 'bridge.php'>
         <input type='hidden' name='apply' value='$value'/>
         <input type='submit' class='form-submit' name='no' value='start Assessment'/>
         </form>
         <p><a href='admin.php'>learn more</a></p>";
-        }
-}
-}else{
-//if courses
-if($_SESSION['show'] == 'course_show'){
-//list all the courses, courses tab
-echo "<h2 class = 'text-uppercase mt-4 mb-5'>Courses</h2>";
-while ($row2 = $course->fetch_assoc()) {
-foreach($row2 as $value) echo "  <p>$value</p>";
-//if in_array check if the user has apllied to the course
-if(in_array($value, $user_data_array)){
-echo"<div class='icon'><span class='flaticon-earth'></span></div>";
-echo" <form method='post' class='register-form' action = 'apply_course.php'>
+                } //in_array( $value, $user_data_array )
+            } //$row2 = $course->fetch_assoc()
+        } //$_SESSION[ 'show' ] == 'assessment_show'
+        else {
+            //if courses
+            if ( $_SESSION[ 'show' ] == 'course_show' ) {
+                //list all the courses, courses tab
+                echo "<h2 class = 'text-uppercase mt-4 mb-5'>Courses</h2>";
+                while ( $row2 = $course->fetch_assoc() ) {
+                    foreach ( $row2 as $value )
+                        echo "  <p>$value</p>";
+                    //if in_array check if the user has apllied to the course
+                    if ( in_array( $value, $user_data_array ) ) {
+                        echo "<div class='icon'><span class='flaticon-earth'></span></div>";
+                        echo " <form method='post' class='register-form' action = 'apply_course.php'>
 <input type='hidden' name='continue' value='$value'/>
 <input type='submit' class='form-submit' name='signup' value='continue video course'/>
 </form>
 <p><a href='admin.php'>learn more</a></p>";
-}else{
-echo"<div class='icon'><span class='flaticon-earth'></span></div>";
-echo "<form method='post' class='register-form' action = 'apply_course.php'>
+                    } //in_array( $value, $user_data_array )
+                    else {
+                        echo "<div class='icon'><span class='flaticon-earth'></span></div>";
+                        echo "<form method='post' class='register-form' action = 'apply_course.php'>
 <input type='hidden' name='apply' value='$value'/>
 <input type='submit' class='form-submit' name='signup' value='apply video course'/>
 </form>
 <p><a href='admin.php'>learn more</a></p>";
-}
-echo"<br>";
-}}else{
-    //progress tab
-    echo "<h2 class = 'text-uppercase mt-4 mb-5'>Progress until completion</h2>";
-    while ($row2 = $course->fetch_assoc()) {
-    foreach($row2 as $value);
-    //if in_array check if the user has apllied to the course
-    if(in_array($value, $user_data_array)){
-
-    //percentage of video completion algo
-        //counts user total watched video
-        if ($watched_video_query = mysqli_query($db, "SELECT `video` FROM `user_watched_videos` WHERE user = '$username' AND course = '$value'")) {
-        $watched_videos =  mysqli_num_rows($watched_video_query);
-        }
-        //counts total video
-        if ($total_video_query = mysqli_query($db, "SELECT video FROM `course_vids` WHERE course = '$value'")) {
-        $total_videos =  mysqli_num_rows($total_video_query);
-        }
-        $progress_percentage = ($watched_videos/$total_videos)*100;
-        $progress_bar = ($watched_videos/$total_videos)*10;
-        if(is_nan($progress_percentage)){
-            echo "
+                    }
+                    echo "<br>";
+                } //$row2 = $course->fetch_assoc()
+            } //$_SESSION[ 'show' ] == 'course_show'
+            else {
+                //progress tab
+                echo "<h2 class = 'text-uppercase mt-4 mb-5'>Progress until completion</h2>";
+                while ( $row2 = $course->fetch_assoc() ) {
+                    foreach ( $row2 as $value );
+                    //if in_array check if the user has apllied to the course
+                    if ( in_array( $value, $user_data_array ) ) {
+                        
+                        //percentage of video completion algo
+                        //counts user total watched video
+                        if ( $watched_video_query = mysqli_query( $db, "SELECT `video` FROM `user_watched_videos` WHERE user = '$username' AND course = '$value'" ) ) {
+                            $watched_videos = mysqli_num_rows( $watched_video_query );
+                        } //$watched_video_query = mysqli_query( $db, "SELECT `video` FROM `user_watched_videos` WHERE user = '$username' AND course = '$value'" )
+                        //counts total video
+                        if ( $total_video_query = mysqli_query( $db, "SELECT video FROM `course_vids` WHERE course = '$value'" ) ) {
+                            $total_videos = mysqli_num_rows( $total_video_query );
+                        } //$total_video_query = mysqli_query( $db, "SELECT video FROM `course_vids` WHERE course = '$value'" )
+                        $progress_percentage = ( $watched_videos / $total_videos ) * 100;
+                        $progress_bar        = ( $watched_videos / $total_videos ) * 10;
+                        if ( is_nan( $progress_percentage ) ) {
+                            echo "
             <div class='row clock_sec clockdiv' id='clockdiv'>
             <div class = 'col-lg-$progress_bar'>
             <h2 class='mb-3'>$value</h2>
@@ -222,8 +298,9 @@ echo"<br>";
                       </div>
                       </div>
             <p><a href='admin.php'>learn more</a></p>";
-        }else{
-    echo"
+                        } 
+                        else {
+                            echo "
     <div class='row clock_sec clockdiv' id='clockdiv'>
     <div class = 'col-lg-$progress_bar'>
     <h2 class='mb-3'>$value</h2>
@@ -233,9 +310,15 @@ echo"<br>";
               </div>
             </div>
     <p><a href='admin.php'>learn more</a></p>";
+                        }
+                    } 
+            }
+        }
     }
+ } 
+
 }
-}}}};
+;
 //
 echo "</div>";
 ?>
